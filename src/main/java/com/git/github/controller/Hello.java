@@ -9,7 +9,7 @@ public class Hello {
     
     @GetMapping("/hello")
     public String getMethodName() {
-        return "Hello imad how are you?";
+        return "Hello imad welcome to github";
     }
     
 }
