@@ -1,0 +1,43 @@
+name: Input Demo Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Your name"
+        required: true
+        type: string
+
+      environment:
+        description: "Select environment"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+jobs:
+  test-inputs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show user name
+        run: echo "👤 Hello ${{ inputs.name }}"
+
+      - name: Show environment
+        run: echo "🌍 Selected environment is ${{ inputs.environment }}"
+
+      - name: Simulate environment action
+        run: |
+          echo "Starting process..."
+          echo "Running in ${{ inputs.environment }} mode"
+
+      - name: Special message for prod
+        if: ${{ inputs.environment == 'prod' }}
+        run: echo "🚨 Production mode activated!"
+
+      - name: Special message for dev
+        if: ${{ inputs.environment == 'dev' }}
+        run: echo "🛠 Development mode - safe testing"
