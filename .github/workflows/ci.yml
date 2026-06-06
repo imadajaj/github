@@ -4,11 +4,15 @@ on:
   push:
     branches:
       - main
-      - feature/*
+      - feature
+
   pull_request:
     branches:
       - main
-      - feature/*
+      - feature
+
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   test:
@@ -23,6 +27,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+
+      - name: Test cron
+        run: echo "Cron works!"
 
       - name: Run tests
         run: mvn test
